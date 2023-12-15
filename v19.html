@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вариант 19</title>
+</head>
+<body>
+
+<!-- Шапка с кнопками для перехода -->
+<header>
+  <button onclick="goToPage('index.html')">Список студентов</button>
+  <button onclick="goToPage('v19.html')">Вариант 19</button>
+</header>
+
+<!-- Основное содержимое страницы -->
+<form id="calculatorForm">
+  <div id="numberForms">
+    <!-- Первая форма для ввода числа -->
+    <input type="number" class="numberInput" name="input1" value="0">
+    <button type="button" onclick="addNumberForm()">+</button>
+  </div>
+
+  <button type="button" onclick="calculateSum()">Подсчитать сумму</button>
+  <div id="result"></div>
+</form>
+
+<script>
+function addNumberForm() {
+  // Создаем новый элемент для ввода числа
+  var newInput = document.createElement("input");
+  newInput.type = "number";
+  newInput.className = "numberInput";
+  newInput.name = "input" + (document.getElementsByClassName("numberInput").length + 1); // Уникальное имя
+
+  // Создаем кнопку для удаления формы
+  var removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.textContent = "-";
+  removeButton.onclick = function() {
+    removeNumberForm(newInput);
+  };
+
+  // Создаем контейнер для нового элемента и кнопки удаления
+  var container = document.createElement("div");
+  container.appendChild(newInput);
+  container.appendChild(removeButton);
+
+  // Добавляем новую форму в раздел с формами
+  document.getElementById("numberForms").appendChild(container);
+}
+
+function removeNumberForm(inputElement) {
+  // Получаем родительский контейнер и удаляем его
+  var container = inputElement.parentNode;
+  container.parentNode.removeChild(container);
+}
+
+function calculateSum() {
+  // Получаем все элементы ввода чисел
+  var inputElements = document.getElementsByClassName("numberInput");
+
+  // Инициализируем переменную для суммы
+  var sum = 0;
+
+  // Цикл по всем элементам ввода чисел
+  for (var i = 0; i < inputElements.length; i++) {
+    // Преобразуем значение элемента в число и добавляем к сумме
+    sum += parseFloat(inputElements[i].value) || 0;
+  }
+
+  // Выводим результат на страницу
+  document.getElementById("result").textContent = "Сумма: " + sum;
+}
+
+function goToPage(page) {
+  // Переход на другую страницу
+  window.location.href = page;
+}
+</script>
+
+</body>
+</html>
